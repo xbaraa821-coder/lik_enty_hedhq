@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  background: black;
+  color: white;
+  font-family: Arial;
+  text-align: center;
+  overflow: hidden;
+}
+
+.screen {
+  display: none;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.active {
+  display: flex;
+}
+
+#slideshow {
+  position: relative;
+  width: 260px;
+  height: 320px;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 18px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" src="https://www.myinstants.com/media/sounds/justin-bieber-beauty-and-a-beat.mp3"></audio>
+
+<!-- screen 1 -->
+<div id="s1" class="screen active">
+  <h1 id="text1"></h1>
+</div>
+
+<!-- screen 2 -->
+<div id="s2" class="screen">
+  <h1>تعبت عليه الحق site هذا 😩</h1>
+</div>
+
+<!-- slideshow -->
+<div id="s3" class="screen">
+  <div id="slideshow">
+    <img src="p1.jpg" class="slide active">
+    <img src="p2.jpg" class="slide">
+    <img src="p3.jpg" class="slide">
+  </div>
+</div>
+
+<!-- question -->
+<div id="s4" class="screen">
+  <h1>Do you want to be my girlfriend? 💘</h1>
+  <button onclick="yes()">Yes 😍</button>
+  <button onclick="no()">No 😒</button>
+</div>
+
+<div id="s5" class="screen">
+  <h1>😍 كنت نعرفها 😏</h1>
+  <p>توّا ما عادش تهرب 💖</p>
+</div>
+
+<div id="s6" class="screen">
+  <h1>You can't 😈</h1>
+</div>
+
+<script>
+let text = "Hello mrayem ❤️";
+let i = 0;
+
+function typeText() {
+  if (i < text.length) {
+    document.getElementById("text1").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeText, 100);
+  } else {
+    setTimeout(() => next("s2"), 1500);
+  }
+}
+
+function next(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+function yes() {
+  next("s5");
+}
+
+function no() {
+  next("s6");
+  setTimeout(() => next("s4"), 1500);
+}
+
+// slideshow
+let slides = document.querySelectorAll(".slide");
+let index = 0;
+
+setInterval(() => {
+  slides[index].classList.remove("active");
+  index = (index + 1) % slides.length;
+  slides[index].classList.add("active");
+}, 3000);
+
+// flow
+typeText();
+
+setTimeout(() => next("s3"), 5000);
+setTimeout(() => document.getElementById("music").play(), 5000);
+setTimeout(() => next("s4"), 15000);
+</script>
+
+</body>
+</html>
